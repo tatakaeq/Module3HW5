@@ -4,15 +4,15 @@
     {
         public static void Main(string[] args)
         {
-            var task = Task.Run(async () => await GetResultAsync());
-            Console.WriteLine(task.Result);
+            var result = GetResultAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            Console.WriteLine(result);
         }
 
         public static async Task<string> ReadHelloAsync()
         {
             using var reader = new StreamReader("Hello.txt");
             var hello = await reader.ReadToEndAsync();
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
             return hello;
         }
 
