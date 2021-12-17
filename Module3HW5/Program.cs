@@ -4,8 +4,8 @@
     {
         public static void Main(string[] args)
         {
-            var result = GetResultAsync().GetAwaiter().GetResult();
-            Console.WriteLine(result);
+            var task = Task.Run(async () => await GetResultAsync());
+            Console.WriteLine(task.Result);
         }
 
         public static async Task<string> ReadHelloAsync()
