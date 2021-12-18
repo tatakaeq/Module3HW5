@@ -27,8 +27,8 @@
         public static async Task<string> GetResultAsync()
         {
             Console.WriteLine("Get REsult begin");
-            var hello = Task.Run(() => ReadHelloAsync());
-            var world = Task.Run(() => ReadWorldAsync());
+            var hello = Task.Run(async () => await ReadHelloAsync());
+            var world = Task.Run(async () => await ReadWorldAsync());
             await Task.WhenAll(new[] { hello, world });
             var result = hello.GetAwaiter().GetResult() + world.GetAwaiter().GetResult();
             return result;
