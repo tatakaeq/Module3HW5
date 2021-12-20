@@ -11,27 +11,25 @@
         public static async Task<string> ReadHelloAsync()
         {
             using var reader = new StreamReader("Hello.txt");
-            var hello = await reader.ReadToEndAsync();
             Thread.Sleep(5000);
-            return hello;
+            return await reader.ReadToEndAsync();
         }
 
         public static async Task<string> ReadWorldAsync()
         {
             using var reader = new StreamReader("World.txt");
-            var world = await reader.ReadToEndAsync();
             Thread.Sleep(2000);
-            return world;
+            return await reader.ReadToEndAsync();
         }
 
         public static async Task<string> GetResultAsync()
         {
-            Console.WriteLine("Get REsult begin");
+            Console.WriteLine("GetResult begin");
             var hello = Task.Run(async () => await ReadHelloAsync());
             var world = Task.Run(async () => await ReadWorldAsync());
+
             await Task.WhenAll(new[] { hello, world });
-            var result = hello.GetAwaiter().GetResult() + world.GetAwaiter().GetResult();
-            return result;
+            return hello.GetAwaiter().GetResult() + world.GetAwaiter().GetResult();
         }
     }
 }
